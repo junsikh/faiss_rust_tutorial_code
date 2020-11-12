@@ -18,24 +18,14 @@ fn main() {
     let manipulation_v: f32 = 1000.0;
     
     // initialize uniformly distributed data
-    let mut xb: Vec<f32> = Vec::with_capacity(d * nb);
-    for _ in 0..xb.capacity() {
-        // let v: f32 = StandardNormal.sample(&mut rng) as f32;
-        let v = Uniform::from(0.0 .. 1.0).sample(&mut rng) as f32;
-        xb.push(v)
-    }
+    let mut xb = vec![Uniform::from(0.0 .. 1.0).sample(&mut rng) as f32; d * nb];
     // manipulate the first element of each entry for this experiment
     for i in 0..nb {
         xb[i*d] += i as f32 / manipulation_v;
     }
     
     // initialize uniformly distributed query data
-    let mut xq: Vec<f32> = Vec::with_capacity(d * nq);
-    for _ in 0..xq.capacity() {
-        // let v: f32 = StandardNormal.sample(&mut rng) as f32;
-        let v = Uniform::from(0.0 .. 1.0).sample(&mut rng) as f32;
-        xq.push(v)
-    }
+    let mut xq = vec![Uniform::from(0.0 .. 1.0).sample(&mut rng) as f32; d * nq];
     // manipulate..
     for i in 0..nq {
         xq[i*d] += i as f32 / manipulation_v;
