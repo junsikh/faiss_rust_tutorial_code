@@ -42,24 +42,19 @@ fn main() {
     }
 
     // build faiss index
-    let mut index = match index_factory(d as u32, "Flat", MetricType::L2) {
-        Ok(index) => index,
-        Err(error) => panic!("Failed to initiaite an index. {:?}", error)
-    };
+    let mut index = index_factory(d as u32, "Flat", MetricType::L2).expect("Failed to initiaite an index");
     println!("{:?}", index.is_trained());
-    index.add(&xb);
+    let _ = index.add(&xb);
     println!("{:?}", index.ntotal());
-    index.train(&xb); // this is unnecessary for this example but why not.
+    let _ = index.train(&xb); // this is unnecessary for this example but why not.
 
     // number of neighbors to find per query
     let k = 4;
 
     // sanity check
     println!("{}", "<SANITY CHECK>");
-    let result = match index.search(&xb[0..5*d], 4) {
-        Ok(res) => res,
-        Err(error) => panic!("Failed to search. {:?}", error)
-    };
+    let result = index.search(&xb[0..5*d], k).expect("Failed to search.");
+    
     for (i, (l, d)) in result.labels.iter()
         .zip(result.distances.iter())
         .enumerate()
