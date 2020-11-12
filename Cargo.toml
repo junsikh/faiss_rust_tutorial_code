@@ -1,0 +1,11 @@
+[package]
+name = "faiss_test"
+version = "0.1.0"
+authors = ["Junsik Hwang <junsik.hwang@embark-studios.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+faiss = "0.9.0"
+rand = "0.7.3"
